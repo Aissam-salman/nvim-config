@@ -348,8 +348,8 @@ ColorMyPencils()
 --save
 vim.keymap.set('n', '<leader>scf', ':w<CR>', { desc = 'Save current File' })
 
---run php files
-vim.keymap.set('n', '<leader><CR>', ':!php %<CR>', { desc = 'Run php Files' })
+--run  files
+vim.keymap.set('n', '<leader><CR>', ':!go run %<CR>', { desc = 'Run Go Files' })
 -- retour dans le menu
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>", { desc = 'return to directory' })
 -- garde le focus au milieu lors de la recherche
