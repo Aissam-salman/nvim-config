@@ -204,12 +204,15 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'onedark',
         component_separators = '|',
         section_separators = '',
       },
     },
+  },
+  {
+    'ryanoasis/vim-devicons'
   },
 
   {
@@ -218,7 +221,7 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
-    opts = {},
+    opts = {}
   },
 
   -- "gc" to comment visual regions/lines
@@ -289,6 +292,7 @@ vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
+
 
 -- Save undo history
 vim.o.undofile = true
@@ -473,7 +477,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'gomod', 'gowork', 'gosum', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -706,6 +710,34 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+-- [[ indent-blankline ]]
+--
+local ibl = require('ibl')
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+  vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+  vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+  vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+  vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+  vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+  vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+  vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+
+-- change color and indent symbol here
+ibl.setup({
+  indent = { char = "┊", highlight = { "RainbowCyan" } },
+})
+
+ibl.overwrite({
+  exclude = {
+    filetypes = { 'help', 'terminal', 'dashboard' }
+  }
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
