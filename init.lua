@@ -111,6 +111,15 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
+  -- Lua
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
@@ -288,11 +297,9 @@ vim.o.mouse = 'a'
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
+vim.opt.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.o.breakindent = true
-
 
 -- Save undo history
 vim.o.undofile = true
@@ -348,12 +355,10 @@ ColorMyPencils()
 -- [[ Basic Keymaps ]]
 
 -- custom keymaps
-
+vim.keymap.set('n', '<leader>zen', ':ZenMode<CR>', { desc = 'Toggle ZenMode' })
 --save
 vim.keymap.set('n', '<leader>scf', ':w<CR>', { desc = 'Save current File' })
 
---run  files
-vim.keymap.set('n', '<leader><CR>', ':!go run %<CR>', { desc = 'Run Go Files' })
 -- retour dans le menu
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>", { desc = 'return to directory' })
 -- garde le focus au milieu lors de la recherche
@@ -365,6 +370,10 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = 'Format document' 
 -- permet de déplacer une ligne en mode visual
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- next greatest remap ever : asbjornHaland
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
